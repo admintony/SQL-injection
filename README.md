@@ -6,7 +6,7 @@
 
 ## 2.1 ACCESS-Injection
 
-Blog ： http://47.95.206.199/?p=419
+Blog ： http://admintony.com/2017/12/28/ACCESS%E6%B3%A8%E5%85%A5%E4%B9%8B%E9%80%90%E5%AD%97%E7%8C%9C%E8%A7%A3%E6%B3%95-Python%E5%B7%A5%E5%85%B7/
 ```bash
 python3 inj.py -u Url --tables --keyword=true_page_keyword [--thread=20] #爆表名,--thread参数可选，默认为10
 
@@ -16,7 +16,7 @@ python3 inj.py -u Url -T table_name -C col_name1,col_name2... --dump --keyword=k
 ```
 ## 2.2 MYSQL-Bind-injection
 
-Blog ： http://47.95.206.199/?p=364
+Blog ： http://admintony.com/2017/12/16/%E5%9F%BA%E4%BA%8E%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%E7%9A%84%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99%E5%AE%9E%E4%BE%8B/
 
 1>第一处
 ```python
