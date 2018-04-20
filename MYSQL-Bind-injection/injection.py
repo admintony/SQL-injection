@@ -294,7 +294,7 @@ def run_column(table_name):
 
 #获取列中数据的类
 class GetValue(object):
-    def __init__(self,table,*column,i):
+    def __init__(self,table,i,*column):
         self.table = table
         self.column = column
         self.i = i
