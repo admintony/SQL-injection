@@ -19,13 +19,22 @@ python3 inj.py -u Url -T table_name -C col_name1,col_name2... --dump --keyword=k
 Blog ： http://admintony.com/2017/12/16/基于布尔盲注的脚本编写实例/
 
 1>第一处
+
 ```python
 #Target URL
 url = "http://targetURL//index.php?a=index&f=ilist&p="
 #keyword 用于判断页面是否正确
 keyword ="keyword"
 ```
+
 将代码开头的URL和keyword修改
+
+**注意：**
+
+keyword 为http://targetURL/index.php?p=-1 or 1=1 和 http://targetURL/index.php?p=-1 or 1=2 页面中只出现在前者页面而不出现在后者页面中的值
+
+URL 中存在注入的参数放到最后，并且不跟参数值，程序会自动加上参数值
+
 2>第二处：需要使用什么功能就把什么功能的代码注释取消即可，至于该改的table_name,column_name自己改一下
 ```python
     info = Info()
