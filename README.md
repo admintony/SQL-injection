@@ -6,7 +6,7 @@
 
 ## 2.1 ACCESS-Injection
 
-Blog ： http://admintony.com/2017/12/28/ACCESS注入之逐字猜解法-Python工具/
+Blog ： http://admintony.com/ACCESS注入之逐字猜解法-Python工具.html
 ```bash
 python3 inj.py -u Url --tables --keyword=true_page_keyword [--thread=20] #爆表名,--thread参数可选，默认为10
 
@@ -16,7 +16,7 @@ python3 inj.py -u Url -T table_name -C col_name1,col_name2... --dump --keyword=k
 ```
 ## 2.2 MYSQL-Bind-injection
 
-Blog ： http://admintony.com/2017/12/16/基于布尔盲注的脚本编写实例/
+Blog ： http://admintony.com/基于布尔盲注的脚本编写实例.html
 
 1>第一处
 
